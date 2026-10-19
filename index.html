@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grade Calculator</title>
+    <title>Student Grade Calculator</title>
     <style>
         *{
             margin: 0;
@@ -15,7 +15,7 @@
             left: 35px;
             height: 90px;
             width: calc(100vw - 70px);
-            background-color: rgb(122, 26, 122);
+            background-color: rgb(83, 8, 83);
             color: white;
             border-radius: 15px;
         }
@@ -31,12 +31,14 @@
             color: rgb(216, 197, 235);
         }
         input{
+            display: grid;
+            justify-content: center;
             height: 35px;
             width: 500px;
             margin-bottom: 15px;
             border-radius: 10px;
             font-family: 'Times New Roman', Times, serif;
-            font-size: 16px;
+            font-size: 17px;
             margin-left: 15px;
             border: 2px solid white;
             border: none;
@@ -46,7 +48,7 @@
             border: 0.5px solid black;
         }
         input:hover{
-            box-shadow: 0 0 0 5px blue;
+            box-shadow: 0 0 5px rgb(97, 97, 184);
         }
         label{
             margin-left: 15px;
@@ -59,10 +61,44 @@
             align-items: center;
             height: 500px;
             width: 550px;
-            background-color: aliceblue;
+            background-color: rgba(176, 211, 241, 0.527);
             border-radius: 15px;
-            left: 400px;
+            left: 30px;
             top: 20px;
+        }
+        .calc{
+            position: absolute;
+            left: 630px;
+            top: 550px;
+        }
+        button{
+            height: 50px;
+            width: 130px;
+            background-color: black;
+            color: white;
+            border-radius: 15px;
+            border: none;
+            outline: none;
+        }
+        button:hover{
+            box-shadow: 0 0 10px black
+        }
+        button:focus{
+            transition-timing-function: ease-in-out;
+        }
+        .result{
+            display: grid;
+            align-items: center;
+            position: absolute;
+            height: 200px;
+            width: 300px;
+            border-radius: 10px;
+            background-color: rgba(144, 218, 218, 0.685);
+            left: 800px;
+            top: 110px;
+            line-height: 1.1;
+            padding: 15px;
+            box-sizing: border-box;
         }
         
     </style>
@@ -75,31 +111,153 @@
     <form action="#">
         <div class="report">
             <div>
-            <label for="text"><b>Mathematics:</b></label>
-            <input type="text" placeholder="Enter your marks">
+            <label for="number"><b>Mathematics(Out of 100):</b></label>
+            <input type="number" id="math" placeholder="Enter your marks">
         </div>
         <div>
-            <label for="text"><b>Physics:</b></label>
-            <input type="text" placeholder="Enter your marks">
+            <label for="number"><b>Physics(Out of 100):</b></label>
+            <input type="number" id="phy" placeholder="Enter your marks">
         </div>
         <div>
-            <label for="text"><b>Chemistry:</b></label>
-            <input type="text" placeholder="Enter your marks">
+            <label for="number"><b>Chemistry(Out of 100):</b></label>
+            <input type="number" id="chem" placeholder="Enter your marks">
         </div>
         <div>
-            <label for="text"><b>Biology:</b></label>
-            <input type="text" placeholder="Enter your marks">
+            <label for="number"><b>Biology(Out of 100):</b></label>
+            <input type="number" id="bio" placeholder="Enter your marks">
         </div>
         <div>
-            <label for="text"><b>English:</b></label>
-            <input type="text" placeholder="Enter your marks">
+            <label for="number"><b>English(Out of 100):</b></label>
+            <input type="number" id="eng" placeholder="Enter your marks">
         </div>
         <div>
-            <label for="text"><b>Kannada:</b></label>
-            <input type="text" placeholder="Enter your marks">
+            <label for="number"><b>Kannada(Out of 100):</b></label>
+            <input type="number" id="kan" placeholder="Enter your marks">
         </div>
+    </div>
+    <div class="calc">
+        <button type="button"><b>Calculate Result</b></button>
     </div>
         
     </form>
+    <script>
+        let total=0;
+        let result;
+        let math=document.querySelector("#math");
+        let phy=document.querySelector("#phy");
+        let chem=document.querySelector("#chem");
+        let bio=document.querySelector("#bio");
+        let eng=document.querySelector("#eng");
+        let kan=document.querySelector("#kan");
+
+
+        let button=document.querySelector(".calc button");
+        button.addEventListener('click',function(){
+            if (!result){
+                result=document.createElement("div");
+                result.classList.add("result");
+                document.body.appendChild(result);
+
+            }
+            let total_marks=Number(math.value)+Number(phy.value)+Number(chem.value)+Number(bio.value)+Number(eng.value)+Number(kan.value);
+            total=total_marks;
+            result.innerHTML="<b>Total marks:</b>" + total; 
+
+            percentage=(total/600)*100;
+
+            result.innerHTML += "<b>Percentage:</b>"+ percentage.toFixed(2) + "%";
+            result.style.fontSize="18px";
+            result.style.fontSize="18px";
+            result.style.fontSize="18px";
+
+
+            if(percentage>=90){
+                result.innerHTML+="<b>Grade A+</b>"
+                result.innerHTML+="<b>Pass</b>";
+            }
+            else if(percentage>=85){
+                result.innerHTML+="<b>Grade A</b>"
+                result.innerHTML+="<b>Pass</b>";
+
+            }
+            else if(percentage>=75){
+                result.innerHTML+="<b>Grade B+</b>"
+                result.innerHTML+="<b>Pass</b>";
+
+            }
+            else if(percentage>=70){
+                result.innerHTML+="<b>Grade B</b>"
+                result.innerHTML+="<b>Pass</b>";
+
+
+            }
+            else if(percentage>=65){
+                result.innerHTML+="<b>Grade C+</b>"
+                result.innerHTML+="<b>Pass</b>";
+
+
+            }
+            else if(percentage>=60){
+                result.innerHTML+="<b>Grade C</b>"
+                result.innerHTML+="<b>Pass</b>";
+
+
+            }
+            else if(percentage>=55){
+                result.innerHTML+="<b>Grade D+</b>"
+                result.innerHTML+="<b>Pass</b>";
+
+
+            }
+            else if(percentage>=50){
+                result.innerHTML+="<b>Grade D</b>"
+                result.innerHTML+="<b>Pass</b>";
+
+
+            }
+            else if(percentage>=40){
+                result.innerHTML+="<b>Grade E</b>"
+                result.innerHTML+="<b>Pass</b>";
+
+
+            }
+            else{
+                result.innerHTML+="<b>Fail</b>"
+            }
+            
+            if(math.value>100 || math.value<0 || math.value===""){
+                alert("Invalid marks")
+                return;
+            }
+            if(phy.value>100 || phy.value<0 || phy.value===""){
+                alert("Invalid marks")
+                return;
+            }
+            if(chem.value>100 || chem.value<0 || chem.value===""){
+                alert("Invalid marks")
+                return;
+            }
+            if(kan.value>100 || kan.value<0 || kan.value===""){
+                alert("Invalid marks")
+                return;
+            }
+            if(eng.value>100 || eng.value<0 || eng.value===""){
+                alert("Invalid marks")
+                return;
+            }
+            if(bio.value>100 || bio.value<0 || bio.value===""){
+                alert("Invalid marks")
+                return;
+            }
+
+            math.value="";
+            phy.value="";
+            eng.value="";
+            kan.value="";
+            chem.value="";
+            bio.value="";
+            
+        });
+    </script>
 </body>
 </html>
